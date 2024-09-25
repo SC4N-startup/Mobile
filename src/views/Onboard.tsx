@@ -1,16 +1,20 @@
+import { useNavigation } from "@react-navigation/native";
+import { Header } from "../components/Header";
 import React from "react";
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Onboard = () => {
+    const navigation = useNavigation();
+    
+    const handleContinueWithEmail = () => {
+        navigation.navigate('SignIn');
+    };
+
     return (
         <SafeAreaView style={styles.backgroundContainer}>
-            <ScrollView contentContainerStyle={styles.scrollContainer}>
-                <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={require('../../assets/images/logo.png')} />
-
-                    <Text style={styles.title}>SC4N</Text>
-                </View>
+            <View style={styles.contentContainer}>
+                <Header />
 
                 <Image style={styles.cards} source={require('../../assets/images/cards.png')} />
 
@@ -23,10 +27,10 @@ export const Onboard = () => {
                     Empower your journey to better health by making rational choices with every scan
                 </Text>
 
-                <TouchableOpacity style={styles.continueButton}>
+                <TouchableOpacity onPress={handleContinueWithEmail} style={styles.continueButton}>
                     <Text style={styles.continueWithEmail}>Continue with email</Text>
                 </TouchableOpacity>
-            </ScrollView>
+            </View>
         </SafeAreaView>
     );
 };
@@ -39,24 +43,9 @@ const styles = StyleSheet.create({
         width: '100%',
         alignItems: 'center',
     },
-    scrollContainer: {
+    contentContainer: {
         flex: 1,
         alignItems: 'center',
-    },
-    logoContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    logo: {
-        marginTop: 12,
-        width: 100,
-        height: 100,
-    },
-    title: {
-        color: '#41BF49',
-        fontSize: 48,
-        fontWeight: '600',
     },
     cards: {
         width: 280,
@@ -81,15 +70,16 @@ const styles = StyleSheet.create({
     },
     continueButton: {
         backgroundColor: '#FF9C01',
-        height: 75,
-        borderRadius: 15,
+        height: 64,
+        borderRadius: 16,
         alignItems: 'center',
         paddingHorizontal: 50,
         justifyContent: 'center',
+        marginTop: 16,
     },
     continueWithEmail: {
         color: 'black',
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: '700',
         textAlign: 'center',
     },
