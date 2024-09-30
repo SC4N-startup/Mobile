@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { Header } from "../components/Header";
 import React from "react";
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export const Onboard = () => {
@@ -13,6 +13,8 @@ export const Onboard = () => {
 
     return (
         <SafeAreaView style={styles.backgroundContainer}>
+            <StatusBar backgroundColor='#00364c' />
+
             <View style={styles.contentContainer}>
                 <Header />
 

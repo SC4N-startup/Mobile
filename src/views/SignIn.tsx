@@ -1,32 +1,63 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Header } from "../components/Header";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+const width = Dimensions.get('window').width;
+
+const height = Dimensions.get('window').width;
 
 export const SignIn = () => {
     const navigation = useNavigation();
-    
-    const handleSignUp = () => {
+
+    const [email, setEmail] = useState(null);
+
+    const [password, setPassword] = useState(null);
+
+    const navigateToSignUp = () => {
         navigation.navigate('SignUp');
     };
-    
+
+    const signIn = async () => {
+        let token;
+
+        await fetch('http://localhost:8080/api/v1/authentication/login', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+            }),
+        }).then(res => res.text())
+            .then(data => token = data);
+
+        if (token) {
+            await AsyncStorage.setItem('access-token', token);
+
+            navigation.navigate('BottomMenu');
+        }
+    };
+
     return (
         <SafeAreaView style={styles.backgroundContainer}>
             <View style={styles.contentContainer}>
                 <Header />
 
                 <View style={styles.formContainer}>
-                    <TextInput style={styles.formInput} placeholder="Email" placeholderTextColor='#A9ABB8'></TextInput>
+                    <TextInput onChangeText={(text) => setEmail(text)} style={styles.formInput} placeholder="Email" placeholderTextColor='#A9ABB8'></TextInput>
 
-                    <TextInput style={styles.formInput} secureTextEntry={true} placeholder="Password" placeholderTextColor='#A9ABB8'></TextInput>
+                    <TextInput onChangeText={(text) => setPassword(text)} style={styles.formInput} secureTextEntry={true} placeholder="Password" placeholderTextColor='#A9ABB8'></TextInput>
 
-                    <Text style={styles.dontHaveAccount}>Don't have an account? <Text onPress={handleSignUp} style={styles.signUp}>Sign Up</Text></Text>
+                    <Text style={styles.dontHaveAccount}>Don't have an account? <Text onPress={navigateToSignUp} style={styles.signUp}>Sign Up</Text></Text>
 
-                    <TouchableOpacity style={styles.signInButton}>
-                    <Text style={styles.signIn}>Sign In</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity onPress={signIn} style={styles.signInButton}>
+                        <Text style={styles.signIn}>Sign In</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
@@ -38,19 +69,20 @@ const styles = StyleSheet.create({
         margin: 'auto',
         flex: 1,
         backgroundColor: '#00364c',
-        width: '100%',
+        width: width,
+        height: height,
         alignItems: 'center',
     },
     contentContainer: {
         flex: 1,
         alignItems: 'center',
-        width: '100%',
+        width: width,
     },
     formContainer: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '100%',
+        width: width,
     },
     formInput: {
         fontSize: 20,

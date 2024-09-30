@@ -13,6 +13,7 @@ class MainActivity : ReactActivity() {
    * rendering of the component.
    */
   override fun getMainComponentName(): String = "SC4N"
+  
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(null)
   }
