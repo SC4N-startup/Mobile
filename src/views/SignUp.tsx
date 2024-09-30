@@ -4,23 +4,26 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
 
 export const SignUp = () => {
     const navigation = useNavigation();
 
     const [firstName, setFirstName] = useState(null);
-    
+
     const [lastName, setLastName] = useState(null);
 
     const [email, setEmail] = useState(null);
-    
+
     const [password, setPassword] = useState(null);
 
-    const navigateToSignin = () => {
+    const navigateToSignIn = () => {
         navigation.navigate('SignIn');
     };
 
     const signUp = async () => {
+        let statusCode;
+
         await fetch('http://localhost:8080/api/v1/authentication/register', {
             method: 'POST',
             headers: {
@@ -32,9 +35,27 @@ export const SignUp = () => {
                 email: email,
                 password: password,
             }),
-        }).then(res => res.text())
-        .then(data => console.log(data))
-        .then(() => navigateToSignin());
+        }).then(res => statusCode = res.status);
+
+        console.log(statusCode)
+
+        if (statusCode !== 200 && statusCode !== 201) {
+            Toast.show({
+                type: 'error',
+                text1: 'Registration failed!',
+                text2: 'Invalid data was entered.'
+              });
+
+            return;
+        }
+
+        Toast.show({
+            type: 'success',
+            text1: 'Registration succeeded!',
+            text2: 'New user registered successfully.'
+          });
+
+        navigateToSignIn();
     };
 
     return (
@@ -51,7 +72,7 @@ export const SignUp = () => {
 
                     <TextInput onChangeText={(text) => setPassword(text)} style={styles.formInput} secureTextEntry={true} placeholder="Password" placeholderTextColor='#A9ABB8'></TextInput>
 
-                    <Text style={styles.dontHaveAccount}>Already have an account? <Text onPress={navigateToSignin} style={styles.signUp}>Sign In</Text></Text>
+                    <Text style={styles.dontHaveAccount}>Already have an account? <Text onPress={navigateToSignIn} style={styles.signUp}>Sign In</Text></Text>
 
                     <TouchableOpacity onPress={signUp} style={styles.signInButton}>
                         <Text style={styles.signIn}>Sign Up</Text>

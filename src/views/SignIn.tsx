@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from "react-native-toast-message";
 
 const width = Dimensions.get('window').width;
 
@@ -22,6 +23,8 @@ export const SignIn = () => {
     };
 
     const signIn = async () => {
+        let statusCode;
+
         let token;
 
         await fetch('http://localhost:8080/api/v1/authentication/login', {
@@ -33,13 +36,33 @@ export const SignIn = () => {
                 email: email,
                 password: password,
             }),
-        }).then(res => res.text())
+        }).then(res => {
+            statusCode = res.status;
+
+            return res.text();
+        })
             .then(data => token = data);
 
+        if (statusCode !== 200 && statusCode !== 201) {
+            Toast.show({
+                type: 'error',
+                text1: 'Login failed!',
+                text2: 'Invalid email or password was entered.'
+            });
+
+            return;
+        }
+
         if (token) {
+            Toast.show({
+                type: 'success',
+                text1: 'Login succeeded!',
+                text2: 'User signed in successfully.'
+            });
+            
             await AsyncStorage.setItem('access-token', token);
 
-            navigation.navigate('BottomMenu');
+            navigation.navigate('Onboard');
         }
     };
 
