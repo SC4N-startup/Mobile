@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import Toast from 'react-native-toast-message';
 
 export const SignUp = () => {
     const navigation = useNavigation();
@@ -36,8 +36,6 @@ export const SignUp = () => {
                 password: password,
             }),
         }).then(res => statusCode = res.status);
-
-        console.log(statusCode)
 
         if (statusCode !== 200 && statusCode !== 201) {
             Toast.show({

@@ -25,9 +25,7 @@ export const SignIn = () => {
     const signIn = async () => {
         let statusCode;
 
-        let token;
-
-        await fetch('http://localhost:8080/api/v1/authentication/login', {
+        const token = await fetch('http://localhost:8080/api/v1/authentication/login', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json',
@@ -41,7 +39,7 @@ export const SignIn = () => {
 
             return res.text();
         })
-            .then(data => token = data);
+            .then(data => data);
 
         if (statusCode !== 200 && statusCode !== 201) {
             Toast.show({

@@ -1,18 +1,16 @@
-import React from "react";
-import { Onboard } from './views/Onboard';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { SignIn } from "./views/SignIn";
-import { SignUp } from "./views/SignUp";
-import Toast, { BaseToast, ErrorToast } from "react-native-toast-message";
-import { StyleSheet } from "react-native";
-
-const Stack = createStackNavigator();
+import React from 'react';
+import { StyleSheet } from 'react-native';
+import { Root } from './navigation/root';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import Toast, { ErrorToast } from 'react-native-toast-message';
+import { persistor, store } from './redux/store';
 
 const toastConfig = {
   success: (props) => (
     <ErrorToast
-    style={styles.successToast}
+      style={styles.successToast}
       {...props}
       text1Style={styles.errorTextStyle}
       text2Style={styles.errorSecondaryTextStyle}
@@ -21,7 +19,7 @@ const toastConfig = {
 
   error: (props) => (
     <ErrorToast
-    style={styles.errorToast}
+      style={styles.errorToast}
       {...props}
       text1Style={styles.errorTextStyle}
       text2Style={styles.errorSecondaryTextStyle}
@@ -32,15 +30,13 @@ const toastConfig = {
 export const App = () => {
   return (
     <>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Onboard" component={Onboard} />
-
-          <Stack.Screen name="SignIn" component={SignIn} />
-
-          <Stack.Screen name="SignUp" component={SignUp} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <SafeAreaProvider style={styles.container}>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <Root />
+          </PersistGate>
+        </Provider>
+      </SafeAreaProvider>
 
       <Toast config={toastConfig} />
     </>
@@ -48,6 +44,9 @@ export const App = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   errorToast: {
     top: 60,
     borderLeftColor: 'tomato',
