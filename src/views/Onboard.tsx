@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import React from "react";
 import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import GalleryIcon from "../assets/icons/gallery.svg"
 
 export const Onboard = () => {
     const navigation = useNavigation();
@@ -18,7 +19,7 @@ export const Onboard = () => {
             <View style={styles.contentContainer}>
                 <Header />
 
-                <Image style={styles.cards} source={require('../../assets/images/cards.png')} />
+                <Image style={styles.cards} source={require('../assets/images/cards.png')} />
 
                 <Text style={styles.subtitle}>
                     Welcome! Every <Text style={styles.scan}>SC4N</Text>{"\n"}

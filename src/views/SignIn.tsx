@@ -60,7 +60,7 @@ export const SignIn = () => {
             
             await AsyncStorage.setItem('access-token', token);
 
-            navigation.navigate('Onboard');
+            navigation.navigate('Bottom');
         }
     };
 

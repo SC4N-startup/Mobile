@@ -4,7 +4,7 @@ import { Image, StyleSheet, Text, View } from "react-native";
 export const Header = () => {
     return (
         <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require('../../assets/images/logo.png')} />
+            <Image style={styles.logo} source={require('../assets/images/logo.png')} />
 
             <Text style={styles.title}>SC4N</Text>
         </View>

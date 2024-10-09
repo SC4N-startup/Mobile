@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { Onboard } from '../views/Onboard';
 import { SignIn } from '../views/SignIn';
 import { SignUp } from '../views/SignUp';
-import { StyleSheet } from 'react-native';
+import { Bottom } from './bottom';
 
 const Stack = createStackNavigator();
 
@@ -17,6 +17,8 @@ export const Root = () => {
                 <Stack.Screen name="SignIn" component={SignIn} />
 
                 <Stack.Screen name="SignUp" component={SignUp} />
+
+                <Stack.Screen name="Bottom" component={Bottom} />
             </Stack.Navigator>
         </NavigationContainer>
     );
