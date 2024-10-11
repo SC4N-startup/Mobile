@@ -1,12 +1,100 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import UserIcon from "../assets/icons/user.svg"
-import MenuIcon from "../assets/icons/menu.svg"
-import ChangeIcon from "../assets/icons/change.svg"
-import DetailsIcon from "../assets/icons/details.svg"
+import UserIcon from "../assets/icons/user.svg";
+import MenuIcon from "../assets/icons/menu.svg";
+import ChangeIcon from "../assets/icons/change.svg";
+import DetailsIcon from "../assets/icons/details.svg";
+import ProductIcon from "../assets/icons/product.svg";
+
+const transactionsData = [
+    {
+        id: 1,
+        name: 'Bread',
+        time: 120,
+        amount: 1,
+    },
+    {
+        id: 2,
+        name: 'Milk',
+        time: 120,
+        amount: 3,
+    },
+    {
+        id: 3,
+        name: 'Bread',
+        time: 120,
+        amount: 57,
+    },
+    {
+        id: 4,
+        name: 'Milk',
+        time: 120,
+        amount: 110,
+    },
+    {
+        id: 5,
+        name: 'Meat',
+        time: 120,
+        amount: 200,
+    },
+    {
+        id: 6,
+        name: 'Cheese',
+        time: 120,
+        amount: 200,
+    },
+    {
+        id: 7,
+        name: 'Oil',
+        time: 120,
+        amount: 200,
+    },
+    {
+        id: 8,
+        name: 'Apple',
+        time: 120,
+        amount: 200,
+    },
+    {
+        id: 9,
+        name: 'Orange',
+        time: 120,
+        amount: 200,
+    },
+    {
+        id: 10,
+        name: 'Potato',
+        time: 120,
+        amount: 200,
+    },
+];
 
 export const Home = () => {
+    const renderItem = ({ item, index }) => {
+        return (
+            <View style={styles.transaction}>
+                <View style={styles.profile}>
+                    <View style={styles.galleryContainer}>
+                        <ProductIcon width={24} height={24} />
+                    </View>
+
+                    <View style={styles.transactionMainInfo}>
+                        <Text style={styles.transactionName}>{item.name}</Text>
+
+                        <Text style={styles.transactionTime}>{item.time} ago</Text>
+                    </View>
+                </View>
+
+                <View style={styles.transactionDetails}>
+                    <Text style={styles.transactionsAmount}>$</Text>
+
+                    <Text style={styles.transactionsAmount}>{item.amount}</Text>
+                </View>
+            </View>
+        );
+    };
+
     return (
         <SafeAreaView style={styles.backgroundContainer}>
             <View style={styles.contentContainer}>
@@ -59,6 +147,21 @@ export const Home = () => {
                 </View>
 
                 <View style={styles.dragDownLine} />
+            </View>
+
+            <View style={styles.recentTransactionsContainer}>
+                <View style={styles.transactionsHeader}>
+                    <Text style={styles.transactionsTitle}>Recent Scans</Text>
+
+                    <Text style={styles.showAll}>Show All</Text>
+                </View>
+
+                <FlatList
+                    data={transactionsData}
+                    renderItem={renderItem}
+                    style={styles.transactions}
+                    contentContainerStyle={styles.historyContainer}
+                    showsVerticalScrollIndicator={false} />
             </View>
         </SafeAreaView>
     );
@@ -174,5 +277,67 @@ const styles = StyleSheet.create({
         width: '90%',
         borderColor: 'rgba(255, 255, 255, 0.2)',
         borderRadius: 100,
+    },
+    recentTransactionsContainer: {
+        flex: 1,
+        gap: 24,
+        paddingHorizontal: 18,
+        marginTop: 20,
+    },
+    transactionsHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    transactionsTitle: {
+        fontSize: 20,
+        lineHeight: 24.6,
+        color: '#FF9C01',
+    },
+    showAll: {
+        fontSize: 16,
+        lineHeight: 19.7,
+        color: '#41BF49',
+    },
+    transaction: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    transactionName: {
+        color: 'white',
+        fontSize: 16,
+        lineHeight: 19.7,
+    },
+    transactionTime: {
+        color: '#9c929b',
+        fontSize: 16,
+    },
+    transactionMainInfo: {
+        gap: 6,
+    },
+    transactionDetails: {
+        flexDirection: 'row',
+    },
+    transactionsAmount: {
+        fontSize: 20,
+        lineHeight: 24.6,
+        color: 'white',
+    },
+    transactions: {
+        flex: 1,
+    },
+    galleryContainer: {
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 44,
+        height: 44,
+        borderWidth: 1,
+        borderColor: 'rgba(255, 255, 255, 0.5)'
+    },
+    historyContainer: {
+        gap: 24,
+        flexGrow: 1,
     },
 });

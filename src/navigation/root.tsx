@@ -12,14 +12,13 @@ export const Root = () => {
     return (
         <NavigationContainer>
             <Stack.Navigator screenOptions={{ headerShown: false }}>
-
                 <Stack.Screen name="Bottom" component={Bottom} />
-                <Stack.Screen name="Onboard" component={Onboard} />
 
                 <Stack.Screen name="SignIn" component={SignIn} />
 
                 <Stack.Screen name="SignUp" component={SignUp} />
 
+                <Stack.Screen name="Onboard" component={Onboard} />
             </Stack.Navigator>
         </NavigationContainer>
     );
