@@ -1,11 +1,12 @@
 import React from "react";
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import { FlatList, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import UserIcon from "../assets/icons/user.svg";
 import MenuIcon from "../assets/icons/menu.svg";
 import ChangeIcon from "../assets/icons/change.svg";
 import DetailsIcon from "../assets/icons/details.svg";
 import ProductIcon from "../assets/icons/product.svg";
+import { Wrap } from "../components/Wrap";
 
 const transactionsData = [
     {
@@ -96,7 +97,7 @@ export const Home = () => {
     };
 
     return (
-        <SafeAreaView style={styles.backgroundContainer}>
+        <Wrap style={styles.container} backgroundColor={'#00364c'}>
             <View style={styles.contentContainer}>
                 <View style={styles.header}>
                     <View style={styles.profile}>
@@ -163,14 +164,14 @@ export const Home = () => {
                     contentContainerStyle={styles.historyContainer}
                     showsVerticalScrollIndicator={false} />
             </View>
-        </SafeAreaView>
+        </Wrap>
     );
 };
 
 const styles = StyleSheet.create({
-    backgroundContainer: {
-        flex: 1,
+    container: {
         backgroundColor: '#00364c',
+        flex: 1,
     },
     contentContainer: {
         alignItems: 'center',

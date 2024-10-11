@@ -22,9 +22,9 @@ export const Bottom = () => {
         ),
       }} />
 
-      <BottomTab.Screen name="Community" component={Home} options={{
+      <BottomTab.Screen name="Communities" component={Home} options={{
         tabBarLabel: ({ focused }) => (
-          <Text style={{ color: focused ? '#41BF49' : '#FF9C01', fontSize: 12, fontWeight: '600' }}>Community</Text>
+          <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Communities</Text>
         ),
         tabBarIcon: () => (
           <CommunityIcon width={24} height={24} />
@@ -33,16 +33,16 @@ export const Bottom = () => {
 
       <BottomTab.Screen name="Scan" component={Home} options={{
         tabBarLabel: ({ focused }) => (
-          <Text style={{ color: focused ? '#41BF49' : '#FF9C01', fontSize: 12, fontWeight: '600' }}>Scan</Text>
+          <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Scan</Text>
         ),
         tabBarIcon: () => (
           <ScanIcon width={24} height={24} />
         ),
       }} />
 
-      <BottomTab.Screen name="Favorite" component={Home} options={{
+      <BottomTab.Screen name="Favorites" component={Home} options={{
         tabBarLabel: ({ focused }) => (
-          <Text style={{ color: focused ? '#41BF49' : '#FF9C01', fontSize: 12, fontWeight: '600' }}>Favorite</Text>
+          <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Favorites</Text>
         ),
         tabBarIcon: () => (
           <HeartIcon width={24} height={24} />
@@ -51,7 +51,7 @@ export const Bottom = () => {
 
       <BottomTab.Screen name="Profile" component={Home} options={{
         tabBarLabel: ({ focused }) => (
-          <Text style={{ color: focused ? '#41BF49' : '#FF9C01', fontSize: 12, fontWeight: '600' }}>Profile</Text>
+          <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Profile</Text>
         ),
         tabBarIcon: () => (
           <UserIcon width={24} height={24} />
@@ -65,5 +65,9 @@ const styles = StyleSheet.create({
   navigator: {
     backgroundColor: '#00364c',
     borderTopWidth: 0,
+  },
+  labelText: {
+    fontSize: 12,
+    fontWeight: '600',
   },
 });
