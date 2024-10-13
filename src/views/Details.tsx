@@ -38,7 +38,8 @@ export const Details = () => {
 
     return (
         <Wrap backgroundColor={'#00364c'}>
-            <ScrollView contentContainerStyle={styles.container}>
+            <ScrollView contentContainerStyle={styles.container}
+            style={styles.scroll}>
                 <Product
                     name={details?.title}
                     imageUrl={details?.images[0].split('\"')[1]}
@@ -54,11 +55,14 @@ export const Details = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        padding: 16,
         backgroundColor: '#00364c',
+    },
+    scroll: {
+        flex: 1,
     },
     title: {
         fontSize: 20,

@@ -7,12 +7,13 @@ const Stack = createStackNavigator();
 
 export const ProductsNavigation = () => {
   return (
-      <Stack.Navigator screenOptions={{}}>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen
           options={{headerShown: false}}
           name="AllProducts"
           component={Products}
         />
+        
         <Stack.Screen name="Details" component={Details} />
       </Stack.Navigator>
   );
