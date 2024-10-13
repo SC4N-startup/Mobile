@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         gap: 24,
         backgroundColor: '#00364c',
+        paddingBottom: 36,
     },
     scroll: {
         flex: 1,

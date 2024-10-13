@@ -155,9 +155,11 @@ const styles = StyleSheet.create({
     scroll: {
         flex: 1,
         padding: 16,
+        paddingBottom: 36,
     },
     scrollContent: {
         flexGrow: 1,
         gap: 24,
+        paddingBottom: 36,
     },
 });
