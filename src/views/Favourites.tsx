@@ -18,17 +18,16 @@ export const Favorites = () => {
         dispatch(favoritesSlice.actions.deleteFavorites(item));
     };
 
-    console.log(favorites)
-
     return (
         <Wrap backgroundColor={'#00364c'}>
             <FlatList contentContainerStyle={styles.favorites}
+                style={styles.scroll}
                 data={favorites}
-                keyExtractor={item => `${item.idMeal}`}
+                keyExtractor={item => `${item.id}`}
                 renderItem={({ item }) => (
                     <Product
                         name={item.title}
-                        imageUrl={item.images[0]}
+                        imageUrl={item.images[0].split('\"')[1]}
                         price={item.price}
                         isFavourite={favorites.find(elem => elem.id === item.id)}
                         onActionPress={() => addToFavourites(item)}
@@ -42,10 +41,12 @@ export const Favorites = () => {
 
 const styles = StyleSheet.create({
     favorites: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 16,
+        flexGrow: 1,
+        gap: 24,
         backgroundColor: '#00364c',
+    },
+    scroll: {
+        flex: 1,
+        padding: 16,
     },
 });

@@ -16,5 +16,6 @@ export const Wrap = ({ children, backgroundColor, style }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#00364c'
     },
 });

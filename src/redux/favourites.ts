@@ -13,18 +13,18 @@ export const favoritesSlice = createSlice({
   initialState,
   reducers: {
     addFavorites: (state, action) => {
-      if (!state.products.find(item => item.idProduct === action.payload.idProduct)) {
+      if (!state.products.find(item => item.id === action.payload.id)) {
         state.products = [...state.products, action.payload];
       } else {
         state.products = state.products.filter(
-          item => item.idProduct !== action.payload.idProduct,
+          item => item.id !== action.payload.id,
         );
       }
     },
     deleteFavorites: (state, action) => {
-      if (state.products.find(item => item.idProduct === action.payload.idProduct)) {
+      if (state.products.find(item => item.id === action.payload.id)) {
         state.products = state.products.filter(
-          item => item.idProduct !== action.payload.idProduct,
+          item => item.id !== action.payload.id,
         );
       }
     },

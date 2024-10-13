@@ -13,8 +13,6 @@ const Stack = createStackNavigator();
 export const Root = () => {
     const token = useSelector((state: RootState) => state.authentication.token);
 
-    console.log(token);
-    
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={token ? 'Bottom' : 'Onboard'} screenOptions={{ headerShown: false }}>

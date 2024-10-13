@@ -74,7 +74,7 @@ export const Products = () => {
                         return (
                             <Product
                                 name={item.title}
-                                imageUrl={item.images[0]}
+                                imageUrl={item.images[0].split('\"')[1]}
                                 price={item.price}
                                 isFavourite={favorites.find(elem => elem.id === item.id)}
                                 onActionPress={() => addToFavourites(item)}
@@ -87,8 +87,7 @@ export const Products = () => {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() =>
-                        scrollRef.current?.scrollToIndex({ index: 0, animated: true })
-                    }>
+                        scrollRef.current?.scrollToIndex({ index: 0, animated: true })}>
                     <ArrowUp />
                 </TouchableOpacity>
 

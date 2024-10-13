@@ -41,11 +41,10 @@ export const Details = () => {
             <ScrollView contentContainerStyle={styles.container}>
                 <Product
                     name={details?.title}
-                    imageUrl={details?.images[0]}
+                    imageUrl={details?.images[0].split('\"')[1]}
                     price={details?.price}
                     isFavourite={favorites.find(elem => elem.id === details?.id)}
                     onActionPress={() => addToFavourites(details)} onPress={() => { }}/>
-
                     
                 <Text style={styles.description}>{details?.description}</Text>
             </ScrollView>
