@@ -3,10 +3,10 @@ import React from 'react';
 import { Home } from '../views/Home';
 import { StyleSheet, Text } from 'react-native';
 import HomeIcon from "../assets/icons/home.svg";
-import CommunityIcon from "../assets/icons/community.svg";
-import ScanIcon from "../assets/icons/scan.svg";
 import HeartIcon from "../assets/icons/heart.svg";
 import UserIcon from "../assets/icons/user.svg";
+import ProductIcon from "../assets/icons/products.svg";
+import { Products } from '../views/Prodcts';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -22,7 +22,7 @@ export const Bottom = () => {
         ),
       }} />
 
-      <BottomTab.Screen name="Communities" component={Home} options={{
+      {/* <BottomTab.Screen name="Communities" component={Home} options={{
         tabBarLabel: ({ focused }) => (
           <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Communities</Text>
         ),
@@ -37,6 +37,15 @@ export const Bottom = () => {
         ),
         tabBarIcon: () => (
           <ScanIcon width={24} height={24} />
+        ),
+      }} /> */}
+
+      <BottomTab.Screen name="Products" component={Products} options={{
+        tabBarLabel: ({ focused }) => (
+          <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Products</Text>
+        ),
+        tabBarIcon: () => (
+          <ProductIcon width={24} height={24} />
         ),
       }} />
 

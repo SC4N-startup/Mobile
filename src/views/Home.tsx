@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
 import UserIcon from "../assets/icons/user.svg";
-import MenuIcon from "../assets/icons/menu.svg";
 import ChangeIcon from "../assets/icons/change.svg";
 import DetailsIcon from "../assets/icons/details.svg";
 import ProductIcon from "../assets/icons/product.svg";
+import LogoutIcon from "../assets/icons/logout.svg";
 import { Wrap } from "../components/Wrap";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { jwtDecode } from "jwt-decode";
+import { useNavigation } from "@react-navigation/native";
 
 const transactionsData = [
     {
@@ -72,6 +75,42 @@ const transactionsData = [
 ];
 
 export const Home = () => {
+    const navigation = useNavigation();
+
+    const [username, setUsername] = useState('');
+
+    const [balance, setBalance] = useState(0);
+
+    const token = useSelector((state: RootState) => state.authentication.token);
+
+    const getUser = async () => {
+        try {
+            const decodedToken = jwtDecode(token);
+
+            const id = decodedToken.userId;
+
+            const response = await fetch(`http://localhost:8080/api/v1/user/${id}`, {
+                method: 'GET'
+            });
+
+            const user = await response.json();
+
+            setUsername(`${user.firstName} ${user.lastName}`);
+
+            setBalance(user.balance);
+        } catch (error) {
+            navigation.navigate('SignIn');
+        }
+    };
+
+    const logout = () => {
+        navigation.navigate('SignIn');
+    };
+
+    useEffect(() => {
+        getUser();
+    },);
+
     const renderItem = ({ item, index }) => {
         return (
             <View style={styles.transaction}>
@@ -108,13 +147,13 @@ export const Home = () => {
                         <View>
                             <Text style={styles.headerSubtitle}>Hello!</Text>
 
-                            <Text style={styles.headerTitle}>Emil</Text>
+                            <Text style={styles.headerTitle}>{username}</Text>
                         </View>
                     </View>
 
                     <View style={styles.headerManagementContainer}>
-                        <Pressable style={styles.iconButton}>
-                            <MenuIcon width={38} height={20} />
+                        <Pressable onPress={logout} style={styles.iconButton}>
+                            <LogoutIcon width={40} height={32} />
                         </Pressable>
                     </View>
                 </View>
@@ -124,7 +163,7 @@ export const Home = () => {
                         <Text style={styles.balanceTitle}>Current Balance</Text>
 
                         <View style={styles.currentBalanceContainer}>
-                            <Text style={styles.currentBalance}>30</Text>
+                            <Text style={styles.currentBalance}>{balance}</Text>
 
                             <Text style={styles.currency}>scans/month</Text>
                         </View>
@@ -152,7 +191,7 @@ export const Home = () => {
 
             <View style={styles.recentTransactionsContainer}>
                 <View style={styles.transactionsHeader}>
-                    <Text style={styles.transactionsTitle}>Recent Scans</Text>
+                    <Text style={styles.transactionsTitle}>Recently viewed</Text>
 
                     <Text style={styles.showAll}>Show All</Text>
                 </View>

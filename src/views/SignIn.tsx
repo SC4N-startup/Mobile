@@ -1,11 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { Dimensions, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TextInput } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from "react-native-toast-message";
+import { useDispatch } from "react-redux";
+import { authenticationSlice } from "../redux/authentication";
 
 const width = Dimensions.get('window').width;
 
@@ -14,9 +15,19 @@ const height = Dimensions.get('window').width;
 export const SignIn = () => {
     const navigation = useNavigation();
 
+    const dispatch = useDispatch();
+
     const [email, setEmail] = useState(null);
 
     const [password, setPassword] = useState(null);
+
+    useEffect(() => {
+        setEmail(null);
+        
+        setPassword(null);
+        
+        dispatch(authenticationSlice.actions.deleteToken());
+    }, []);
 
     const navigateToSignUp = () => {
         navigation.navigate('SignUp');
@@ -58,7 +69,7 @@ export const SignIn = () => {
                 text2: 'User signed in successfully.'
             });
             
-            await AsyncStorage.setItem('access-token', token);
+            dispatch(authenticationSlice.actions.setToken(token));
 
             navigation.navigate('Bottom');
         }

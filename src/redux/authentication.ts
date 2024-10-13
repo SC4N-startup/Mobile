@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface CounterState {
-    token: string;
+    token: any;
 }
 
 const initialState: CounterState = {
@@ -18,6 +18,9 @@ export const authenticationSlice = createSlice({
             } else {
                 state.token = action.payload;
             }
+        },
+        deleteToken: (state) => {
+            state.token = '';
         },
     },
 });
