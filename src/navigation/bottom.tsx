@@ -8,6 +8,7 @@ import UserIcon from "../assets/icons/user.svg";
 import ProductIcon from "../assets/icons/products.svg";
 import { Products } from '../views/Prodcts';
 import { ProductsNavigation } from './ProductsNavigation';
+import { Favorites } from '../views/Favourites';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -50,7 +51,7 @@ export const Bottom = () => {
         ),
       }} />
 
-      <BottomTab.Screen name="Favorites" component={Home} options={{
+      <BottomTab.Screen name="Favorites" component={Favorites} options={{
         tabBarLabel: ({ focused }) => (
           <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Favorites</Text>
         ),
