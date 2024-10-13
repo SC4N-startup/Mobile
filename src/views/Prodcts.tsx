@@ -45,7 +45,7 @@ export const Products = () => {
     };
 
     return (
-        <Wrap>
+        <Wrap backgroundColor={'#00364c'}>
             <View style={styles.container}>
                 <View style={styles.inputWrap}>
                     <TextInput
@@ -75,9 +75,10 @@ export const Products = () => {
                             <Product
                                 name={item.title}
                                 imageUrl={item.images[0]}
-                                isFavourite={favorites.find(elem => elem.idProduct === item.idProduct)}
+                                price={item.price}
+                                isFavourite={favorites.find(elem => elem.id === item.id)}
                                 onActionPress={() => addToFavourites(item)}
-                                onPress={() => navigation.navigate('Details', { id: item.idProduct })}
+                                onPress={() => navigation.navigate('Details', { id: item.id })}
                             />
                         );
                     }}

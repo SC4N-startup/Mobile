@@ -17,6 +17,7 @@ interface Props {
     name: string;
     imageUrl: string;
     isFavourite?: string;
+    price,
     onPress: () => void;
     onActionPress?: () => void;
 }
@@ -25,6 +26,7 @@ export const Product: React.FC<Props> = ({
     name,
     imageUrl,
     isFavourite,
+    price,
     onPress,
     onActionPress,
 }) => {
@@ -34,6 +36,10 @@ export const Product: React.FC<Props> = ({
 
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>{name}</Text>
+            </View>
+
+            <View style={styles.detailsContainer}>
+                <Text style={styles.details}>{price} $</Text>
             </View>
 
             <TouchableOpacity style={styles.button} onPress={onActionPress}>
@@ -48,6 +54,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 16,
+    },
+    detailsContainer: {
+        position: 'absolute',
+        right: 16,
+        top: 28,
+        borderRadius: 100,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        padding: 12,
+    },
+    details: {
+        color: 'white',
+        fontSize: 20,
     },
     image: {
         width: Dimensions.get('window').width - 32,

@@ -7,6 +7,7 @@ import HeartIcon from "../assets/icons/heart.svg";
 import UserIcon from "../assets/icons/user.svg";
 import ProductIcon from "../assets/icons/products.svg";
 import { Products } from '../views/Prodcts';
+import { ProductsNavigation } from './ProductsNavigation';
 
 const BottomTab = createBottomTabNavigator();
 
@@ -40,7 +41,7 @@ export const Bottom = () => {
         ),
       }} /> */}
 
-      <BottomTab.Screen name="Products" component={Products} options={{
+      <BottomTab.Screen name="Products" component={ProductsNavigation} options={{
         tabBarLabel: ({ focused }) => (
           <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Products</Text>
         ),
