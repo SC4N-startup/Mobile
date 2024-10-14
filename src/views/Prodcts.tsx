@@ -20,7 +20,15 @@ export const Products = () => {
 
     const inputRef = useRef<TextInput>(null);
 
+    const minPriceRef = useRef<TextInput>(null);
+
+    const maxPriceRef = useRef<TextInput>(null);
+
     const [searchValue, setSearchValue] = useState('');
+
+    const [minimumPrice, setMinimumPrice] = useState();
+
+    const [maximumPrice, setMaximumPrice] = useState();
 
     const [products, setProducts] = useState([]);
 
@@ -33,7 +41,9 @@ export const Products = () => {
 
         const products = await response.json();
 
-        setProducts(products);
+        console.log(response)
+
+        setProducts(products.filter(p => p.price >= (minimumPrice ?? 0) && p.price <= (maximumPrice ?? Number.MAX_VALUE)));
     };
 
     useEffect(() => {
@@ -58,6 +68,8 @@ export const Products = () => {
                         value={searchValue}
                         style={styles.input}
                         onChangeText={text => setSearchValue(text)}
+                        placeholder="Search"
+                        placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
                     />
 
                     <TouchableOpacity
@@ -67,6 +79,30 @@ export const Products = () => {
                         }}>
                         <Clear />
                     </TouchableOpacity>
+                </View>
+
+                <View style={styles.filterWrap}>
+                    <View style={styles.priceWrap}>
+                        <TextInput
+                            ref={minPriceRef}
+                            value={minimumPrice}
+                            style={styles.filter}
+                            onChangeText={text => setMinimumPrice(text)}
+                            placeholder="Minimum Price"
+                            placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
+                        />
+                    </View>
+
+                    <View style={styles.priceWrap}>
+                        <TextInput
+                            ref={maxPriceRef}
+                            value={maximumPrice}
+                            style={styles.filter}
+                            onChangeText={text => setMaximumPrice(text)}
+                            placeholder="Maximum Price"
+                            placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
+                        />
+                    </View>
                 </View>
 
                 <FlatList
@@ -125,9 +161,24 @@ const styles = StyleSheet.create({
         marginTop: 16,
         flexDirection: 'row',
     },
+    filterWrap: {
+        marginHorizontal: 16,
+        marginTop: 16,
+        flexDirection: 'row',
+        gap: 12,
+    },
+    priceWrap: {
+        backgroundColor: '#C2C2C2',
+        padding: 10,
+        borderRadius: 12,
+        flex: 0.5,
+    },
     input: {
         fontSize: 14,
         flex: 1,
+    },
+    filter: {
+        fontSize: 14,
     },
     title: {
         fontSize: 28,
