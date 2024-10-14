@@ -1,4 +1,4 @@
-import { useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Wrap } from '../components/Wrap';
@@ -6,13 +6,16 @@ import { Product } from '../components/Product';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import { favoritesSlice } from '../redux/favourites';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Pressable, ScrollView } from 'react-native-gesture-handler';
+import BackIcon from '../assets/icons/back.svg';
 
 export const Details = () => {
+    const navigation = useNavigation();
+
     const dispatch = useDispatch();
 
     const favorites = useSelector((state: RootState) => state.favorites.products);
-    
+
     const route = useRoute();
 
     const [details, setDetails] = useState(null);
@@ -39,14 +42,18 @@ export const Details = () => {
     return (
         <Wrap backgroundColor={'#00364c'}>
             <ScrollView contentContainerStyle={styles.container}
-            style={styles.scroll}>
+                style={styles.scroll}>
+                <Pressable onPress={() => navigation.navigate('AllProducts')}>
+                    <BackIcon width={32} height={32} />
+                </Pressable>
+
                 <Product
                     name={details?.title}
-                    imageUrl={details?.images[0].split('\"')[1]}
+                    imageUrl={details?.images[0].split('\"')[1] ?? details?.images[0]}
                     price={details?.price}
                     isFavourite={favorites.find(elem => elem.id === details?.id)}
-                    onActionPress={() => addToFavourites(details)} onPress={() => { }}/>
-                    
+                    onActionPress={() => addToFavourites(details)} onPress={() => { }} />
+
                 <Text style={styles.description}>{details?.description}</Text>
             </ScrollView>
         </Wrap>

@@ -79,7 +79,7 @@ export const Products = () => {
                         return (
                             <Product
                                 name={item.title}
-                                imageUrl={item.images[0].split('\"')[1]}
+                                imageUrl={item.images[0].split('\"')[1] ?? item.images[0]}
                                 price={item.price}
                                 isFavourite={favorites.find(elem => elem.id === item.id)}
                                 onActionPress={() => addToFavourites(item)}

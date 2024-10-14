@@ -60,14 +60,14 @@ export const Bottom = () => {
         ),
       }} />
 
-      <BottomTab.Screen name="Profile" component={Home} options={{
+      {/* <BottomTab.Screen name="Profile" component={Home} options={{
         tabBarLabel: ({ focused }) => (
           <Text style={[styles.labelText, { color: focused ? '#41BF49' : '#FF9C01' }]}>Profile</Text>
         ),
         tabBarIcon: () => (
           <UserIcon width={24} height={24} />
         ),
-      }} />
+      }} /> */}
     </BottomTab.Navigator>
   );
 };
