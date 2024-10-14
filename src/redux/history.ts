@@ -15,10 +15,6 @@ export const historySlice = createSlice({
         addToHistory: (state, action) => {
             if (!state.history.find(item => item.id === action.payload.id)) {
                 state.history = [...state.history, action.payload];
-            } else {
-                state.history = state.history.filter(
-                    item => item.id !== action.payload.id,
-                );
             }
         },
         deleteFromHistory: (state, action) => {

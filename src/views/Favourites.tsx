@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Wrap } from '../components/Wrap';
 import ArrowUp from '../assets/icons/arrow-up.svg';
 import ArrowDown from '../assets/icons/arrow-down.svg';
+import { historySlice } from '../redux/history';
 
 export const Favorites = () => {
     const navigation = useNavigation();
@@ -20,6 +21,10 @@ export const Favorites = () => {
 
     const addToFavourites = (item: any) => {
         dispatch(favoritesSlice.actions.deleteFavorites(item));
+    };
+
+    const addToHistory = (item: any) => {
+        dispatch(historySlice.actions.addToHistory(item));
     };
 
     return (
@@ -36,7 +41,11 @@ export const Favorites = () => {
                         price={item.price}
                         isFavourite={favorites.find(elem => elem.id === item.id)}
                         onActionPress={() => addToFavourites(item)}
-                        onPress={() => navigation.navigate('Details', { id: item.id })}
+                        onPress={() => {
+                            navigation.navigate('Products', { screen: 'Details', params: { id: item.id } })
+
+                            addToHistory(item);
+                        }}
                     />
                 )}
             />

@@ -1,7 +1,7 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import {favoritesSlice} from './favourites';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { favoritesSlice } from './favourites';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE} from 'redux-persist';
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import { authenticationSlice } from './authentication';
 import { historySlice } from './history';
 

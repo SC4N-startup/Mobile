@@ -9,6 +9,7 @@ import ArrowUp from '../assets/icons/arrow-up.svg';
 import ArrowDown from '../assets/icons/arrow-down.svg';
 import Clear from '../assets/icons/clear.svg';
 import { Wrap } from "../components/Wrap";
+import { historySlice } from "../redux/history";
 
 export const Products = () => {
     const navigation = useNavigation();
@@ -42,6 +43,10 @@ export const Products = () => {
 
     const addToFavourites = (item: any) => {
         dispatch(favoritesSlice.actions.addFavorites(item));
+    };
+
+    const addToHistory = (item: any) => {
+        dispatch(historySlice.actions.addToHistory(item));
     };
 
     return (
@@ -78,7 +83,11 @@ export const Products = () => {
                                 price={item.price}
                                 isFavourite={favorites.find(elem => elem.id === item.id)}
                                 onActionPress={() => addToFavourites(item)}
-                                onPress={() => navigation.navigate('Details', { id: item.id })}
+                                onPress={() => {
+                                    navigation.navigate('Details', { id: item.id })
+
+                                    addToHistory(item);
+                                }}
                             />
                         );
                     }}

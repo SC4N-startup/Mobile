@@ -10,69 +10,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { jwtDecode } from "jwt-decode";
 import { useNavigation } from "@react-navigation/native";
-
-const transactionsData = [
-    {
-        id: 1,
-        name: 'Bread',
-        time: 120,
-        amount: 1,
-    },
-    {
-        id: 2,
-        name: 'Milk',
-        time: 120,
-        amount: 3,
-    },
-    {
-        id: 3,
-        name: 'Bread',
-        time: 120,
-        amount: 57,
-    },
-    {
-        id: 4,
-        name: 'Milk',
-        time: 120,
-        amount: 110,
-    },
-    {
-        id: 5,
-        name: 'Meat',
-        time: 120,
-        amount: 200,
-    },
-    {
-        id: 6,
-        name: 'Cheese',
-        time: 120,
-        amount: 200,
-    },
-    {
-        id: 7,
-        name: 'Oil',
-        time: 120,
-        amount: 200,
-    },
-    {
-        id: 8,
-        name: 'Apple',
-        time: 120,
-        amount: 200,
-    },
-    {
-        id: 9,
-        name: 'Orange',
-        time: 120,
-        amount: 200,
-    },
-    {
-        id: 10,
-        name: 'Potato',
-        time: 120,
-        amount: 200,
-    },
-];
+import { Screen } from "react-native-screens";
 
 export const Home = () => {
     const navigation = useNavigation();
@@ -81,7 +19,11 @@ export const Home = () => {
 
     const [balance, setBalance] = useState(0);
 
+    const [history, setHistory] = useState([]);
+
     const token = useSelector((state: RootState) => state.authentication.token);
+
+    const recents = useSelector((state: RootState) => state.history.history);
 
     const getUser = async () => {
         try {
@@ -119,17 +61,15 @@ export const Home = () => {
                         <ProductIcon width={24} height={24} />
                     </View>
 
-                    <View style={styles.transactionMainInfo}>
-                        <Text style={styles.transactionName}>{item.name}</Text>
-
-                        <Text style={styles.transactionTime}>{item.time} ago</Text>
-                    </View>
+                    <Pressable onPress={() => navigation.navigate('Products', { screen: 'Details', params: { id: item.id } })} style={styles.transactionMainInfo}>
+                        <Text style={styles.transactionName}>{item.title}</Text>
+                    </Pressable>
                 </View>
 
                 <View style={styles.transactionDetails}>
                     <Text style={styles.transactionsAmount}>$</Text>
 
-                    <Text style={styles.transactionsAmount}>{item.amount}</Text>
+                    <Text style={styles.transactionsAmount}>{item.price}</Text>
                 </View>
             </View>
         );
@@ -192,12 +132,10 @@ export const Home = () => {
             <View style={styles.recentTransactionsContainer}>
                 <View style={styles.transactionsHeader}>
                     <Text style={styles.transactionsTitle}>Recently viewed</Text>
-
-                    <Text style={styles.showAll}>Show All</Text>
                 </View>
 
                 <FlatList
-                    data={transactionsData}
+                    data={recents}
                     renderItem={renderItem}
                     style={styles.transactions}
                     contentContainerStyle={styles.historyContainer}
@@ -347,6 +285,7 @@ const styles = StyleSheet.create({
     transactionName: {
         color: 'white',
         fontSize: 16,
+        flexWrap: 'wrap',
         lineHeight: 19.7,
     },
     transactionTime: {
