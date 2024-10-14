@@ -33,16 +33,15 @@ export const Favorites = () => {
                 ref={scrollRef}
                 style={styles.scroll}
                 data={favorites}
-                keyExtractor={item => `${item.id}`}
+                keyExtractor={item => `${item.idDrink}`}
                 renderItem={({ item }) => (
                     <Product
-                        name={item.title}
-                        imageUrl={item.images[0].split('\"')[1] ?? item.images[0]}
-                        price={item.price}
-                        isFavourite={favorites.find(elem => elem.id === item.id)}
+                        name={item.strDrink}
+                        imageUrl={item.strDrinkThumb}
+                        isFavourite={favorites.find(elem => elem.idDrink === item.idDrink)}
                         onActionPress={() => addToFavourites(item)}
                         onPress={() => {
-                            navigation.navigate('Products', { screen: 'Details', params: { id: item.id } })
+                            navigation.navigate('Products', { screen: 'Details', params: { id: item.idDrink } })
 
                             addToHistory(item);
                         }}

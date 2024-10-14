@@ -17,7 +17,6 @@ interface Props {
     name: string;
     imageUrl: string;
     isFavourite?: string;
-    price,
     onPress: () => void;
     onActionPress?: () => void;
 }
@@ -26,7 +25,6 @@ export const Product: React.FC<Props> = ({
     name,
     imageUrl,
     isFavourite,
-    price,
     onPress,
     onActionPress,
 }) => {
@@ -36,10 +34,6 @@ export const Product: React.FC<Props> = ({
 
             <View style={styles.headerContainer}>
                 <Text style={styles.header}>{name}</Text>
-            </View>
-
-            <View style={styles.detailsContainer}>
-                <Text style={styles.details}>{price} $</Text>
             </View>
 
             <TouchableOpacity style={styles.button} onPress={onActionPress}>

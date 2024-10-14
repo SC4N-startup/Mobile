@@ -19,8 +19,6 @@ export const Home = () => {
 
     const [balance, setBalance] = useState(0);
 
-    const [history, setHistory] = useState([]);
-
     const token = useSelector((state: RootState) => state.authentication.token);
 
     const recents = useSelector((state: RootState) => state.history.history);
@@ -61,14 +59,12 @@ export const Home = () => {
                         <ProductIcon width={24} height={24} />
                     </View>
 
-                    <Pressable onPress={() => navigation.navigate('Products', { screen: 'Details', params: { id: item.id } })} style={styles.transactionMainInfo}>
-                        <Text style={styles.transactionName}>{item.title}</Text>
+                    <Pressable onPress={() => navigation.navigate('Products', { screen: 'Details', params: { id: item.idDrink } })} style={styles.transactionMainInfo}>
+                        <Text style={styles.transactionName}>{item.strDrink}</Text>
                     </Pressable>
                 </View>
 
                 <View style={styles.transactionDetails}>
-                    <Text style={styles.transactionsAmount}>$</Text>
-
                     <Text style={styles.transactionsAmount}>{item.price}</Text>
                 </View>
             </View>

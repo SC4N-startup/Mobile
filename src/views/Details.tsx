@@ -21,14 +21,15 @@ export const Details = () => {
     const [details, setDetails] = useState(null);
 
     const getProductDetails = async id => {
-        const response = await fetch(`https://api.escuelajs.co/api/v1/products/${id}`, {
-            method: 'GET',
-        },
+        const response = await fetch(`https://thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
+            {
+                method: 'GET',
+            },
         );
 
         const data = await response.json();
 
-        setDetails(data);
+        setDetails(data.drinks[0]);
     };
 
     useEffect(() => {
@@ -48,13 +49,12 @@ export const Details = () => {
                 </Pressable>
 
                 <Product
-                    name={details?.title}
-                    imageUrl={details?.images[0].split('\"')[1] ?? details?.images[0]}
-                    price={details?.price}
-                    isFavourite={favorites.find(elem => elem.id === details?.id)}
+                    name={details?.strDrink}
+                    imageUrl={details?.strDrinkThumb}
+                    isFavourite={favorites.find(elem => elem.idDrink === details?.idDrink)}
                     onActionPress={() => addToFavourites(details)} onPress={() => { }} />
 
-                <Text style={styles.description}>{details?.description}</Text>
+                <Text style={styles.description}>{details?.strInstructions}</Text>
             </ScrollView>
         </Wrap>
     );

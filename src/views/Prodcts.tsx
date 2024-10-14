@@ -35,16 +35,14 @@ export const Products = () => {
     const favorites = useSelector((state: RootState) => state.favorites.products);
 
     const getProducts = async (value = '') => {
-        const response = await fetch(`https://api.escuelajs.co/api/v1/products/?title=${searchValue}`, {
+        const response = await fetch(`https://thecocktaildb.com/api/json/v1/1/search.php?s=${value.length > 0 ? value : 'margarita'}`, {
             method: 'GET',
         });
 
         const products = await response.json();
 
-        console.log(response)
-
-        setProducts(products.filter(p => p.price >= (minimumPrice ?? 0) && p.price <= (maximumPrice ?? Number.MAX_VALUE)));
-    };
+        setProducts(products.drinks);
+    }
 
     useEffect(() => {
         getProducts(searchValue);
@@ -81,7 +79,7 @@ export const Products = () => {
                     </TouchableOpacity>
                 </View>
 
-                <View style={styles.filterWrap}>
+                {/* <View style={styles.filterWrap}>
                     <View style={styles.priceWrap}>
                         <TextInput
                             ref={minPriceRef}
@@ -103,24 +101,23 @@ export const Products = () => {
                             placeholderTextColor={'rgba(0, 0, 0, 0.5)'}
                         />
                     </View>
-                </View>
+                </View> */}
 
                 <FlatList
                     ref={scrollRef}
                     style={styles.scroll}
                     contentContainerStyle={styles.scrollContent}
                     data={products}
-                    keyExtractor={item => `${item.id}`}
+                    keyExtractor={item => `${item.idDrink}`}
                     renderItem={({ item }) => {
                         return (
                             <Product
-                                name={item.title}
-                                imageUrl={item.images[0].split('\"')[1] ?? item.images[0]}
-                                price={item.price}
-                                isFavourite={favorites.find(elem => elem.id === item.id)}
+                                name={item.strDrink}
+                                imageUrl={item.strDrinkThumb}
+                                isFavourite={favorites.find(elem => elem.idDrink === item.idDrink)}
                                 onActionPress={() => addToFavourites(item)}
                                 onPress={() => {
-                                    navigation.navigate('Details', { id: item.id })
+                                    navigation.navigate('Details', { id: item.idDrink })
 
                                     addToHistory(item);
                                 }}

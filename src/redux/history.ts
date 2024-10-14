@@ -13,14 +13,14 @@ export const historySlice = createSlice({
     initialState,
     reducers: {
         addToHistory: (state, action) => {
-            if (!state.history.find(item => item.id === action.payload.id)) {
+            if (!state.history.find(item => item.idDrink === action.payload.id)) {
                 state.history = [...state.history, action.payload];
             }
         },
         deleteFromHistory: (state, action) => {
-            if (state.history.find(item => item.id === action.payload.id)) {
+            if (state.history.find(item => item.idDrink === action.payload.id)) {
                 state.history = state.history.filter(
-                    item => item.id !== action.payload.id,
+                    item => item.idDrink !== action.payload.id,
                 );
             }
         },
